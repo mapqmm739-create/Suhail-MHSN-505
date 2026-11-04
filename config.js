@@ -2,11 +2,6 @@ const fs = require('fs-extra')
 const envPath = __dirname + '/.env'
 if (fs.existsSync(envPath)) {
   require('dotenv').config({ path: envPath })
-  // dotenv treats every '#' inside an unquoted value as the start of a comment,
-  // which silently truncates values such as a Mega SESSION_ID ("<key>#<id>").
-  // Shell semantics only begin a comment at a '#' preceded by whitespace, so
-  // repair any unquoted value that was cut short that way. Lets users paste a
-  // SESSION_ID in .env unquoted, exactly as they would in config.js.
   try {
     const raw = fs.readFileSync(envPath, 'utf8')
     for (const line of raw.split(/\r?\n/)) {
@@ -23,172 +18,88 @@ if (fs.existsSync(envPath)) {
   } catch (e) {}
 }
 
-
-//═══════[Required Variables]════════\\
 global.audio= "" ;  
 global.video= "" ;
 global.port =process.env.PORT 
-global.appUrl=process.env.APP_URL || ""     // put your deploy app/bot url here, for 24/7 for (render , koyeb, glitch)
+global.appUrl=process.env.APP_URL || ""
 global.email ="saimsamsun789@gmail.com"
-global.location="Lahore,Pakistan."
-
+global.location="Mukalla,Yemen."
 
 global.mongodb= process.env.MONGODB_URI || "false"  
 global.allowJids= process.env.ALLOW_JID || "null" 
 global.blockJids= process.env.BLOCK_JID || "null"
 global.DATABASE_URL = process.env.DATABASE_URL || "false"
 
-global.timezone= process.env.TZ || process.env.TIME_ZONE || "Asia/Karachi";
+global.timezone= process.env.TZ || process.env.TIME_ZONE || "Asia/Aden";
 global.github=process.env.GITHUB|| "https://github.com/GlobalTechInfo/Suhail-Md-3.0";
-global.gurl  =process.env.GURL  || "https://whatsapp.com/channel/0029VagJIAr3bbVBCpEkAM07";
-global.website =process.env.GURL || "https://whatsapp.com/channel/0029VagJIAr3bbVBCpEkAM07" ; 
-global.THUMB_IMAGE = process.env.THUMB_IMAGE || process.env.IMAGE || "https://i.ibb.co/TgwRyHR/Ephoto360-com-166de101e03cd7.jpg" || "https://i.ibb.co/bH1kbX0/a4c0b1af253197d4837ff6760d5b81c0.jpg" ; // SET LOGO FOR IMAGE 
-global.caption = process.env.CAPTION || global.caption || "Made With Love 🩷" 
+global.gurl  =process.env.GURL  || "https://whatsapp.com/channel/0029Vb7ydebF1YlYtOCJzu2O";
+global.website =process.env.GURL || "https://whatsapp.com/channel/0029Vb7ydebF1YlYtOCJzu2O" ; 
+global.THUMB_IMAGE = process.env.THUMB_IMAGE || process.env.IMAGE || "https://i.ibb.co/TgwRyHR/Ephoto360-com-166de101e03cd7.jpg";
+global.caption = process.env.CAPTION || global.caption || "𝑀𝐻𝑆𝑁,505 🩷" 
 
+global.devs = ""
+global.sudo = process.env.SUDO ? process.env.SUDO.replace(/[\s+]/g, '') : "967718061225";
+global.owner= process.env.OWNER_NUMBER ? process.env.OWNER_NUMBER.replace(/[\s+]/g, '') : "967718061225";
 
-global.devs = "" // Developer Contacts
-global.sudo = process.env.SUDO ? process.env.SUDO.replace(/[\s+]/g, '') : "null";
-global.owner= process.env.OWNER_NUMBER ? process.env.OWNER_NUMBER.replace(/[\s+]/g, '') : "";
-
-
-
-
-//========================= [ BOT SETTINGS ] ======8===================\\
-// Affects smd/quoted styling only. It no longer controls ads: `externalAdReply` (the WhatsApp
-// Click-to-WhatsApp ad payload) has been stripped from the whole codebase, because the Messenger
-// client drew its link banner over replies such as .menu and .owner, or hid them outright.
-// Default 0 also stops this from rolling a random 0-5 on every restart.
 global.style = process.env.STYLE || '0'
-global.flush = process.env.FLUSH   || "false"; // Make it "true" if bot not responed
+global.flush = process.env.FLUSH   || "false";
 global.gdbye = process.env.GOODBYE || process.env.CAN_GOODBYE || "false"; 
-// Parenthesised: the old version let `?:` bind looser than `||`, so `WELCOME=false` (a
-// truthy string) turned WELCOME **on**. Explicit "false" now means off.
 global.wlcm  = (String(process.env.WELCOME ?? process.env.CAN_WELCOME ?? "").toLowerCase() === "true" ||
                 (!process.env.WELCOME && !process.env.CAN_WELCOME && Math.floor(Math.random()*3) === 1))
-                ?  "true" : "false" ;  // Make it "false" for disable WELCOME 
+                ?  "true" : "false" ;
 
 global.warncount = process.env.WARN_COUNT || 3
 global.disablepm = process.env.DISABLE_PM || "false"
-global.disablegroup = process.env.DISABLE_GROUPS || "false", // disable bot in groups when public mode
+global.disablegroup = process.env.DISABLE_GROUPS || "false",
 
-global.MsgsInLog = process.env.MSGS_IN_LOG|| "false" // "true"  to see messages , "log" to show logs , "false" to hide logs messages
-global.userImages= process.env.USER_IMAGES || "" //"https://i.ibb.co/pXyNHj8/suhail.jpg" // "image" // set Image/video urls here
-global.waPresence= process.env.WAPRESENCE ||  "null" ; // 'unavailable' | 'available' | 'composing' | 'recording' | 'paused'
+global.MsgsInLog = process.env.MSGS_IN_LOG|| "false"
+global.userImages= process.env.USER_IMAGES || ""
+global.waPresence= process.env.WAPRESENCE ||  "null" ;
 
-
-//========================= [ AUTO READ MSGS & CMDS ] =========================\\
 global.readcmds = process.env.READ_COMMAND || "false"
 global.readmessage = process.env.READ_MESSAGE || "false"
-global.readmessagefrom = process.env.READ_MESSAGE_FROM || "null,
+global.readmessagefrom = process.env.READ_MESSAGE_FROM || "null"
 
-
-//========================= [ AUTO SAVE & READ STATUS ] =========================\\
 global.read_status = process.env.AUTO_READ_STATUS || "true"
 global.save_status = process.env.AUTO_SAVE_STATUS || "false"
-global.save_status_from =  process.env.SAVE_STATUS_FROM  || "nullownerNumber: ["967718061225"],
-ownerName: "𝑀𝐻𝑆𝑁,505",
-botName: "𝑀𝐻𝑆𝑁,505",
-botImage: "https://i.ibb.co/pXyNHj8/suhail.jpg",
-autoRead: false,
-autoStatusSave: false,
-READ_MESSAGE_FROM: "null",
-READ_STATUS_FROM: "null",
-global.read_status_from =  process.env.READ_STATUS_FROM  ||  "
+global.save_status_from =  process.env.SAVE_STATUS_FROM  || "null"
+global.read_status_from =  process.env.READ_STATUS_FROM  || ""
 
-global.api_smd = "https://api.qasimdev.dpdns.org" //  || "https://api-smd-1.vercel.app" // expires
+global.api_smd = "https://api.qasimdev.dpdns.org"
 global.scan = "https://suhail-pair.onrender.com";
-
-global.SESSION_ID = process.env.SESSION_ID  || ""  // PUT your SESSION_ID 
-// Telegram bot token used by the .tgs sticker downloader. Create one with @BotFather,
-// then set TELEGRAM_BOT_TOKEN in .env or put it inside the quotes below.
+global.SESSION_ID = process.env.SESSION_ID  || ""
 global.TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN || "";
 
-
 module.exports = {
-
-  menu: process.env.MENU || "", /**  Available @MENU @Schemes 1: Aztec_Md, 2: A17_Md, 3: Suhail-Md Default ---------- If Not Choose then it Randomely Pic One Of Them Each time **/
-
+  menu: process.env.MENU || "",
   HANDLERS: process.env.PREFIX  || ".",
   BRANCH  : process.env.BRANCH  || "main",
   VERSION : process.env.VERSION || "3.1.0-dev",
-  caption : global.caption || "" , // ```『 ᴘᴏᴡᴇʀᴇᴅ ʙʏ GlobalTechInfo ® 』```", //*『sᴜʙsᴄʀɪʙᴇ • sᴜʜᴀɪʟ ᴛᴇᴄʜ』*\n youtube.com/@GlobalTechInfo"),
- 
-  author : process.env.PACK_AUTHER|| "",
-  packname: process.env.PACK_NAME || "",
-  botname : process.env.BOT_NAME  || "Suhail-Md",
-  ownername:process.env.OWNER_NAME|| "Suhail:Shy<3",
-  // These were read as Config.MsgsInLog / Config.warncount by plugins but never exported,
-  // so they were always undefined (message log could never turn on, WARN_COUNT parsed to NaN).
+  caption : global.caption || "",
+  author : process.env.PACK_AUTHER|| "𝑀𝐻𝑆𝑁,505",
+  packname: process.env.PACK_NAME || "𝑀𝐻𝑆𝑁,505",
+  botname : process.env.BOT_NAME  || "𝑀𝐻𝑆𝑁,505",
+  ownername:process.env.OWNER_NAME|| "𝑀𝐻𝑆𝑁,505",
   MsgsInLog: global.MsgsInLog || "false",
   warncount: process.env.WARN_COUNT || 3,
-  // Opt-in gate for the `>…` / `$…` eval command in plugins/_help.smd. Off unless explicitly set.
   evalCmd: process.env.EVAL_CMD || "false",
-
-
   errorChat : process.env.ERROR_CHAT || "",
   KOYEB_API : process.env.KOYEB_API  || "false",
-
   REMOVE_BG_KEY : process.env.REMOVE_BG_KEY  || "",
   TELEGRAM_BOT_TOKEN: global.TELEGRAM_BOT_TOKEN || "",
   OPENAI_API_KEY: process.env.OPENAI_API_KEY || "",
-  HF_TOKEN: process.env.HF_TOKEN || process.env.HUGGINGFACE_TOKEN || "",
   HEROKU_API_KEY: process.env.HEROKU_API_KEY || "",
   HEROKU_APP_NAME:process.env.HEROKU_APP_NAME|| "",
   antilink_values:process.env.ANTILINK_VALUES|| "all",
   HEROKU: process.env.HEROKU_APP_NAME && process.env.HEROKU_API_KEY,
-
-
   WORKTYPE: process.env.WORKTYPE || process.env.MODE|| "public",
   LANG: ( process.env.THEME ||  "SUHAIL"  ).toUpperCase(),
-
-
-
 };
 
-
-
 global.ELEVENLAB_API_KEY = process.env.ELEVENLAB_API_KEY || "";
-// waifu.im API key. Basic SFW browsing works unauthenticated, but a key is required for NSFW
-// results and lifts the rate limit. Override with the WAIFU_IM_API_KEY env var.
 global.WAIFU_IM_API_KEY = process.env.WAIFU_IM_API_KEY || "hDHzfR9NFFjbJsn6ut8ayELIsXysd7UH8OXHgmW8";
 global.aitts_Voice_Id = process.env.AITTS_ID|| "37";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 global.rank = "updated"
 global.isMongodb = false; 
 let file = require.resolve(__filename)
-fs.watchFile(file, () => { fs.unwatchFile(file);console.log(`Update'${__filename}'`);delete require.cache[file];	require(file); })
- 
-
-// ========================= [ Disables in V.1.2.8 ] ===============================\\  
-  //style : process.env.STYLE || "2",  // put '1' & "2" here to check bot styles
-  //readmessage:process.env.READ_MESSAGE|| "false",
-  //warncount: process.env.WARN_COUNT || 3,
-  //userImages:process.env.USER_IMAGES|| "text",  // SET IMAGE AND VIDEO URL FOR BOT MENUS 
-  //disablepm: process.env.DISABLE_PM || "false",
-  //MsgsInLog: process.env.MSGS_IN_LOG|| "false", // "true"  to see messages , "log" to open logs , "false" to hide logs messages
-  //readcmds:process.env.READ_COMMANDS|| "false", 
-  //alwaysonline:process.env.WAPRESENCE|| "unavailable", // 'unavailable' | 'online' | 'composing' | 'recording' | 'paused'
-  //read_status: process.env.AUTO_READ_STATUS || "false",
-  //save_status: process.env.AUTO_SAVE_STATUS || "false",
-  //aitts_Voice_Id : process.env.AITTS_ID || "37",
-  //ELEVENLAB_API_KEY: process.env.ELEVENLAB_API_KEY  || "",
+fs.watchFile(file, () => { fs.unwatchFile(file);console.log(`Update'${__filename}'`);delete require.cache[file]; require(file); })
